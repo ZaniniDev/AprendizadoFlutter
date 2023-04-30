@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     home: PaginaInicial(),
     debugShowCheckedModeBanner: false,
   ));
@@ -16,9 +16,11 @@ class PaginaInicial extends StatelessWidget {
   Widget build(BuildContext context) {
     String descPrimeiroCase =
         "O primeiro case retrata como aprendemos a utilizar os recursos básicos do Flutter";
+
     return Scaffold(
       //appbar = topo da pagina, como se fosse um header
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         //title = é o titulo do appbar
         title: Text('TCC Flutter'),
         //actions = parte superior direito do appbar
@@ -26,19 +28,11 @@ class PaginaInicial extends StatelessWidget {
           //iconbutton = widget que tem como parametros o icone e o onpressed
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.import_contacts),
+            icon: Icon(Icons.flashlight_on),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.qr_code_2),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.account_box),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.attach_money),
+            icon: Icon(Icons.share),
           ),
         ],
       ),
@@ -47,41 +41,165 @@ class PaginaInicial extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("Titulo Home Flutter Cases"),
+            Text(
+              "Aprendizado Flutter",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              margin: EdgeInsets.only(top: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      print("Pressionado botao 1 case!");
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.quiz),
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                            "Primeiro Case",
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      descPrimeiroCase,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  )
+                  //colocamos o text para descrevermos como será o case 1,2..
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: Theme(
+                data: ThemeData(
+                  primarySwatch: Colors.amber,
+                ),
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        log("Pressionado botao 2 case!");
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber,
+                          foregroundColor: Colors.white),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.qr_code_2),
+                          Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text("Segundo Case"),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text(
+                        "O segundo case retrata como aprendemos a utilizar os recursos nativos de hardware mobile",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
             Container(
               alignment: Alignment.bottomCenter,
               margin: EdgeInsets.only(top: 10),
               child: Theme(
                   data: ThemeData(
-                    primarySwatch: Colors.lightGreen,
-                    brightness: Brightness.light,
+                    primarySwatch: Colors.lightBlue,
+                    brightness: Brightness.dark,
                   ),
                   child: Column(
                     children: [
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.amber[50]),
                         onPressed: () {
-                          print("Pressionado botao 1 case!");
+                          print("Pressionado botao 3 case!");
                         },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            foregroundColor: Colors.white),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
-                            Icon(Icons.quiz),
+                            Icon(Icons.account_box),
                             Padding(
                               padding: EdgeInsets.all(16),
-                              child: Text("Primeiro Case"),
+                              child: Text("Terceiro Case"),
                             )
                           ],
                         ),
                       ),
-
-                      //colocamos o text para descrevermos como será o case 1,2..
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        margin: EdgeInsets.only(top: 10),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
                         child: Text(
-                          descPrimeiroCase,
+                          "O terceiro case retrata como aprendemos a utilizar os recursos nativos de software mobile",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              margin: EdgeInsets.only(bottom: 25),
+              child: Theme(
+                  data: ThemeData(
+                    primarySwatch: Colors.red,
+                  ),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          log("Pressionado botao 4 case!");
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.cloud),
+                            Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text("Quarto Case"),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          "O quarto case retrata como aprendemos a utilizar os recurso de armazenamento de dados em nuvem utilizando Flutter",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 10,
@@ -92,82 +210,35 @@ class PaginaInicial extends StatelessWidget {
                     ],
                   )),
             ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: Theme(
-                data: ThemeData(
-                  primarySwatch: Colors.amber,
-                  brightness: Brightness.dark,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    log("Pressionado botao 2 case!");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.qr_code_2),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text("Segundo Case"),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(top: 10),
-              child: Theme(
-                data: ThemeData(
-                  primarySwatch: Colors.lightBlue,
-                  brightness: Brightness.dark,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    print("Pressionado botao 3 case!");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.account_box),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text("Terceiro Case"),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(bottom: 25),
-              child: Theme(
-                data: ThemeData(
-                  primarySwatch: Colors.red,
-                  brightness: Brightness.dark,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    log("Pressionado botao 4 case!");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.cloud),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text("Quarto Case"),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        backgroundColor: Colors.blue,
+        fixedColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.notifications,
+              size: 24,
+            ),
+            label: "Push Notificação",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                size: 36,
+              ),
+              label: ("Home")),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.location_on,
+                size: 24,
+              ),
+              label: ("Localização")),
+        ],
       ),
     );
   }
