@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cases/case_4/Conta.dart';
 import 'package:flutter_cases/case_4/components/BottomNavigationBarCase4.dart';
 import 'package:flutter_cases/case_4/controllers/contas_controller.dart';
-import 'package:flutter_cases/case_4/controllers/transacoes_controller.dart';
 import 'package:flutter_cases/case_4/Status.dart';
+import 'package:flutter_cases/case_4/controllers/usuarios_controller.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -27,21 +28,14 @@ class MinhasContasPage extends StatefulWidget {
 
 class _MinhasContasPageState extends State<MinhasContasPage> {
   @override
-  List<ContaTransferencia> contas = [
-    new ContaTransferencia(
-        nome: "DASA",
-        descricao: "Conta referente as transações do diretório academico",
-        id: "PgZAuynDWughUPYbuqIH"),
-    new ContaTransferencia(
-        nome: "Conta Pessoal",
-        descricao: "Conta referente as transações pessoais",
-        id: "UwjAIVkWwv93raUXIFtM")
-  ];
-  late ContasUsuarioController controllerContas;
+  void initState() {
+    super.initState();
+    Provider.of<ContasUsuarioController>(context, listen: false)
+        .carregarContas(UsuariosController.id);
+  }
 
+  @override
   Widget build(BuildContext context) {
-    controllerContas = Provider.of<ContasUsuarioController>(context);
-
     return Theme(
       data: ThemeData(
         primarySwatch: Colors.green,
@@ -49,20 +43,29 @@ class _MinhasContasPageState extends State<MinhasContasPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Contas"),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.refresh))],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Provider.of<ContasUsuarioController>(context, listen: false)
+                      .carregarContas(UsuariosController.id);
+                },
+                icon: Icon(Icons.refresh))
+          ],
         ),
         body: Container(
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text(
-                    "Escolha sua conta",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+              Center(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(
+                      "Escolha sua conta",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -76,56 +79,100 @@ class _MinhasContasPageState extends State<MinhasContasPage> {
                       child: CircularProgressIndicator(),
                     );
                   }
+
+                  List<Conta> contas = data.contas;
                   return Wrap(
                     children: contas.length > 0
                         ? List.generate(
                             contas.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // Lógica a ser executada quando o botão for pressionado
-                                  ContaController.conta_id = contas[index].id!;
-                                  context.pushReplacementNamed("case_4_home");
-                                  Provider.of<TransacoesController>(context,
-                                          listen: false)
-                                      .limparTransacoes();
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          contas[index].nome,
-                                        ),
-                                        Text(
-                                          contas[index].descricao != null
-                                              ? contas[index].descricao!
-                                              : "",
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              color: Colors.black38,
-                                              fontWeight: FontWeight.w300),
-                                        )
-                                      ],
-                                    )
-                                  ],
+                            (index) => Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  // contentPadding: EdgeInsets.only(top: 10),
+                                  //onTap: () => context.push('/transacoes/${usuarios[index].id}'),
+                                  title: Text(contas[index].nome),
+                                  subtitle: Text(contas[index].descricao!),
+
+                                  trailing: Wrap(
+                                    spacing: 12, // space between two icons
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    children: <Widget>[
+                                      PopupMenuButton(
+                                        icon: Icon(Icons.more_vert),
+                                        itemBuilder: (context) {
+                                          return [
+                                            PopupMenuItem(
+                                              child: ListTile(
+                                                title: Text("Editar Conta"),
+                                                onTap: () {
+                                                  // print("Editou esta transação");
+                                                  // context.pushNamed(
+                                                  //     "case_4_transacoes_editar",
+                                                  //     queryParameters: {
+                                                  //       'transacao': data
+                                                  //           .transacoesFiltro[index]
+                                                  //           .toJson()
+                                                  //     });
+                                                },
+                                              ),
+                                            ),
+                                            PopupMenuItem(
+                                              child: ListTile(
+                                                title:
+                                                    Text("Remover Transação"),
+                                                onTap: () {
+                                                  // context.pop(context);
+                                                  // showAlertDialogExcluirTransacao(
+                                                  //     context,
+                                                  //     data.transacoesFiltro[index]);
+                                                  // print("Removeu esta transação");
+                                                },
+                                              ),
+                                            ),
+                                          ];
+                                        },
+                                      ),
+                                      // icon-2
+                                    ],
+                                  ),
+
+                                  onTap: () {
+                                    ContaController.conta_id =
+                                        contas[index].id!;
+                                    if (context.canPop() == true) {
+                                      context.pop();
+                                    }
+                                    context.pushReplacementNamed("case_4_home");
+                                  },
                                 ),
                               ),
                             ),
                           )
                         : [
-                            ElevatedButton(
-                                onPressed: () {},
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.add_circle_sharp),
-                                    Text("Adicionar conta"),
-                                  ],
-                                ))
+                            Padding(padding: EdgeInsets.only(top: 15)),
+                            Center(
+                              child: FloatingActionButton(
+                                  onPressed: () {
+                                    context.goNamed("case_4_contas_adicionar");
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [Icon(Icons.add)],
+                                  )),
+                            ),
+                            // ElevatedButton(
+                            //     onPressed: () {
+                            //       context.pushReplacementNamed(
+                            //           "case_4_contas_adicionar");
+                            //     },
+                            //     child: Row(
+                            //       children: [
+                            //         Icon(Icons.add_circle_sharp),
+                            //         Text("Adicionar conta"),
+                            //       ],
+                            //     ))
                           ],
                   );
                 }),

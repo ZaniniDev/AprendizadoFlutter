@@ -237,22 +237,22 @@ class _TransacoesPageState extends State<TransacoesPage> {
         backgroundColor: Colors.green,
         title: const Text('Transações'),
         actions: [
-          IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () async {
-                // await controller.carregarTransacoes(ContaController.conta_id);
-                mostrarFormularioPesquisar(context);
-                // await Provider.of<TransacoesController>(context, listen: false)
-                //     .carregarTransacoes(ContaController.conta_id);
-                //getIt<TransacoesController>().loadTransacoesLoja(_id_loja!),
-              }),
+          // IconButton(
+          //     icon: const Icon(Icons.search),
+          //     onPressed: () async {
+          //       // await controller.carregarTransacoes(ContaController.conta_id);
+          //       mostrarFormularioPesquisar(context);
+          //       // await Provider.of<TransacoesController>(context, listen: false)
+          //       //     .carregarTransacoes(ContaController.conta_id);
+          //       //getIt<TransacoesController>().loadTransacoesLoja(_id_loja!),
+          //     }),
           IconButton(
             onPressed: () => context.pushNamed('case_4_transacoes_adicionar'),
             icon: const Icon(Icons.add_circle_sharp),
           ),
           IconButton(
-            onPressed: () => context.push('/case_4'),
-            icon: const Icon(Icons.logout),
+            onPressed: () => mostrarFormularioFiltro(context),
+            icon: const Icon(Icons.filter_list),
           ),
         ],
       ),

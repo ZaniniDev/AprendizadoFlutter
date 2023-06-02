@@ -12,6 +12,12 @@ class Case4Home extends StatelessWidget {
         title: Text("Case 4 - Banco de Dados"),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () => context.replace('/'),
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: Theme(
         data: ThemeData(

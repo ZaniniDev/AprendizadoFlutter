@@ -27,16 +27,14 @@ class ContasUsuarioController extends ChangeNotifier {
     return criouConta;
   }
 
-  // Future<List<Transacao>> carregarTransacoes(String conta_id) async {
-  //   setStatus(Status.carregando);
-  //   transacoes = await TransacoesRepository.getTransacoes(conta_id);
-  //   transacoesFiltro = transacoes;
-  //   calcularSaldoAtual();
-  //   // print("Carregou " + transacoes.length.toString() + " transações.");
-  //   setStatus(Status.sucesso);
-  //   notifyListeners();
-  //   return transacoes;
-  // }
+  Future<List<Conta>> carregarContas(String usuario_id) async {
+    setStatus(Status.carregando);
+    contas = await ContasRepository.getContas(usuario_id);
+    // print("Carregou " + transacoes.length.toString() + " transações.");
+    setStatus(Status.sucesso);
+    notifyListeners();
+    return contas;
+  }
 
   // Future<bool> deleterTransacao(String idTransacao) async {
   //   setStatus(Status.carregando);

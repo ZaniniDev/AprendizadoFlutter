@@ -10,6 +10,7 @@ class UsuariosController with ChangeNotifier {
   static auth() async {
     bool autenticacaoLogin =
         await UsuarioRepository.verificaLogin(usuario, senha);
+
     if (autenticacaoLogin) {
       id = UsuarioRepository.usuario_id;
       autenticado = true;
