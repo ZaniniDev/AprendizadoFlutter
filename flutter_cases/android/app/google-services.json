@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "481867099935",
+    "firebase_url": "https://financas-app-test-default-rtdb.firebaseio.com",
+    "project_id": "financas-app-test",
+    "storage_bucket": "financas-app-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481867099935:android:61dd85956b42193dbc4a2a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_cases"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481867099935-51pqq0cp4q4mq197uhinmnl5ruh9mkps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD82gELRDzky9_JvOlHSc5kd8jPLG7mywQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481867099935-51pqq0cp4q4mq197uhinmnl5ruh9mkps.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "481867099935-8a4ueui53f0c93a8ap3gb2fiv0276h62.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterCases"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
