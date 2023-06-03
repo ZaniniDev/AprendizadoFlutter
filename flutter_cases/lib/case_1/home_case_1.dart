@@ -25,42 +25,54 @@ class _PerguntaAppState extends State<PerguntasApp> {
   final perguntas = const [
     {
       'titulo': 'Tcc Flutter - Pergunta 1',
-      'texto': 'Qual é a sua cor favorita?',
+      'texto': 'Quando o flutter foi criado?',
       'resposta': [
-        {'texto': 'Preto', 'pontuacao': 10},
-        {'texto': 'amarelo', 'pontuacao': 5},
-        {'texto': 'azul', 'pontuacao': 3},
-        {'texto': 'roxo', 'pontuacao': 2},
+        {'texto': '2015', 'pontuacao': 10},
+        {'texto': '2017', 'pontuacao': 5},
+        {'texto': '2019', 'pontuacao': 3},
+        {'texto': '2021', 'pontuacao': 2},
       ],
     },
     {
       'titulo': 'Tcc Flutter - Pergunta 2',
-      'texto': 'Qual é a sua comida?',
+      'texto': 'Quem desenvolveu o Flutter',
       'resposta': [
-        {'texto': 'Arroz', 'pontuacao': 10},
-        {'texto': 'Strogonof', 'pontuacao': 5},
-        {'texto': 'Macarrao', 'pontuacao': 3},
-        {'texto': 'Almondega', 'pontuacao': 2},
+        {'texto': 'Google', 'pontuacao': 10},
+        {'texto': 'Facebook', 'pontuacao': 5},
+        {'texto': 'Microsoft', 'pontuacao': 3},
+        {'texto': 'Apple', 'pontuacao': 2},
       ],
     },
     {
       'titulo': 'Tcc Flutter - Pergunta 3',
-      'texto': 'Qual seu estilo de musica?',
+      'texto': 'Em qual linguagem de programação o Flutter é escrito?',
       'resposta': [
-        {'texto': 'Hip-Hop', 'pontuacao': 10},
-        {'texto': 'Rock', 'pontuacao': 5},
-        {'texto': 'Pop', 'pontuacao': 3},
-        {'texto': 'Pagode', 'pontuacao': 2},
+        {'texto': 'JavaScript', 'pontuacao': 10},
+        {'texto': 'Swift', 'pontuacao': 5},
+        {'texto': 'Kotlin', 'pontuacao': 3},
+        {'texto': 'Dart', 'pontuacao': 2},
       ],
     },
     {
       'titulo': 'Tcc Flutter - Pergunta 4',
-      'texto': 'Qual é a sua fruta?',
+      'texto': 'Quais são os principais objetivos do flutter?',
       'resposta': [
-        {'texto': 'Maça', 'pontuacao': 10},
-        {'texto': 'Pera', 'pontuacao': 5},
-        {'texto': 'Banana', 'pontuacao': 3},
-        {'texto': 'Coco', 'pontuacao': 2},
+        {
+          'texto':
+              'Desenvolvimento de aplicativo móveis nativos apenas para Android',
+          'pontuacao': 10
+        },
+        {'texto': 'Desenvolvimento de aplicativo web', 'pontuacao': 5},
+        {
+          'texto':
+              'Desenvolvimento de aplicatviso móvies nativos apenas para IOS',
+          'pontuacao': 3
+        },
+        {
+          'texto':
+              'Desenvolvimento de aplicativos móveis nativos para Android e IOS ',
+          'pontuacao': 2
+        },
       ],
     },
     {

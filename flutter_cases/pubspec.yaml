@@ -45,6 +45,8 @@ dependencies:
   csv: ^5.0.2
   flutter_keyboard_visibility: ^5.4.1
 
+  flutter_barcode_scanner: ^2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

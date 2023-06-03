@@ -78,26 +78,26 @@ class _TransacoesPageState extends State<TransacoesPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      TextFormField(
-                        controller: dataInicialController,
-                        inputFormatters: [
-                          MaskTextInputFormatter(mask: "##/##/####")
-                        ],
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Data Inicial',
-                        ),
-                      ),
-                      TextFormField(
-                        controller: dataFinalController,
-                        inputFormatters: [
-                          MaskTextInputFormatter(mask: "##/##/####")
-                        ],
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Data Final',
-                        ),
-                      ),
+                      // TextFormField(
+                      //   controller: dataInicialController,
+                      //   inputFormatters: [
+                      //     MaskTextInputFormatter(mask: "##/##/####")
+                      //   ],
+                      //   keyboardType: TextInputType.number,
+                      //   decoration: InputDecoration(
+                      //     labelText: 'Data Inicial',
+                      //   ),
+                      // ),
+                      // TextFormField(
+                      //   controller: dataFinalController,
+                      //   inputFormatters: [
+                      //     MaskTextInputFormatter(mask: "##/##/####")
+                      //   ],
+                      //   keyboardType: TextInputType.number,
+                      //   decoration: InputDecoration(
+                      //     labelText: 'Data Final',
+                      //   ),
+                      // ),
                       Padding(
                         padding: EdgeInsets.only(top: 15),
                         child: Text(
@@ -114,22 +114,22 @@ class _TransacoesPageState extends State<TransacoesPage> {
                           print("Alterou tipoTransacao!" + tipoTransacao!);
                         }),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: Text(
-                          "Forma de tranferência",
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      DropdownButton(
-                        items: _createListFormaTransferencia(),
-                        hint: Text("Escolha uma forma de transferência"),
-                        value: formaTransferencia,
-                        onChanged: (String? value) => state(() {
-                          formaTransferencia = value ?? "";
-                          print("Alterou forma transf!" + formaTransferencia!);
-                        }),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(top: 15),
+                      //   child: Text(
+                      //     "Forma de tranferência",
+                      //     textAlign: TextAlign.start,
+                      //   ),
+                      // ),
+                      // DropdownButton(
+                      //   items: _createListFormaTransferencia(),
+                      //   hint: Text("Escolha uma forma de transferência"),
+                      //   value: formaTransferencia,
+                      //   onChanged: (String? value) => state(() {
+                      //     formaTransferencia = value ?? "";
+                      //     print("Alterou forma transf!" + formaTransferencia!);
+                      //   }),
+                      // ),
                       ElevatedButton(
                         onPressed: () {
                           aplicarFiltro();

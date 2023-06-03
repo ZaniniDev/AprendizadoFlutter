@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cases/case_1/home_case_1.dart';
+import 'package:flutter_cases/case_2/home_case_2.dart';
 import 'package:flutter_cases/case_4/Transacao.dart';
 import 'package:flutter_cases/case_4/controllers/usuarios_controller.dart';
 import 'package:flutter_cases/case_4/pages/transacao_adicionar.dart';
@@ -31,6 +32,14 @@ final GoRouter routerConfig = GoRouter(
             return PerguntasApp();
           },
         ),
+        GoRoute(
+          name: "case_2_home",
+          path: 'case2/home',
+          builder: (BuildContext context, GoRouterState state) {
+            return AppQrCode();
+          },
+        ),
+        //AppQrCode
         GoRoute(
           name: "case_4_home",
           path: 'case4/home',
