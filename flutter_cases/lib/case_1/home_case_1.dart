@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './resultado.dart';
-import './questionario.dart';
+import 'package:flutter_cases/case_1/components/questionario.dart';
+import 'package:flutter_cases/case_1/components/resultado.dart';
 
 // container  = espaçamento entre os conteudos
 // margem - distancia o conteudo dos elementos

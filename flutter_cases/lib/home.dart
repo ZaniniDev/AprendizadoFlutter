@@ -181,7 +181,7 @@ class PaginaInicial extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          context.goNamed("case_4_login_page");
+                          context.goNamed("case_4_login");
                           print("Pressionado botao 4 case!");
                         },
                         style: ElevatedButton.styleFrom(

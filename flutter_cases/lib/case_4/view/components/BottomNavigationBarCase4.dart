@@ -15,10 +15,10 @@ class BottomNavigationBarCase4 extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.attach_money,
+            Icons.school,
             size: 24,
           ),
-          label: "Transações",
+          label: "Alunos",
         ),
         BottomNavigationBarItem(
             icon: Icon(
@@ -28,18 +28,18 @@ class BottomNavigationBarCase4 extends StatelessWidget {
             label: ("Inicio")),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.account_balance,
+              Icons.person_add_sharp,
               size: 24,
             ),
-            label: ("Contas")),
+            label: ("Adicionar Aluno")),
       ],
       onTap: (value) {
         if (value == 0) {
-          context.pushReplacementNamed("case_4_transacoes");
+          context.pushNamed("case_4_aluno_listar");
         } else if (value == 1) {
-          context.pushReplacementNamed("case_4_home");
+          context.pushNamed("case_4_home");
         } else if (value == 2) {
-          context.pushReplacementNamed("case_4_contas");
+          context.pushNamed("case_4_aluno_adicionar");
         }
       },
     );

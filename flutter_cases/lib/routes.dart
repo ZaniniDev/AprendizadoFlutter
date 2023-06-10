@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cases/case_1/home_case_1.dart';
 import 'package:flutter_cases/case_2/home_case_2.dart';
-import 'package:flutter_cases/case_4/Transacao.dart';
-import 'package:flutter_cases/case_4/controllers/usuarios_controller.dart';
-import 'package:flutter_cases/case_4/pages/transacao_adicionar.dart';
-import 'package:flutter_cases/case_4/pages/contas_adicionar.dart';
-import 'package:flutter_cases/case_4/pages/contas_editar.dart';
-import 'package:flutter_cases/case_4/pages/transacao_editar.dart';
-import 'package:flutter_cases/case_4/pages/home_case_4.dart';
-import 'package:flutter_cases/case_4/pages/contas_listagem.dart';
-import 'package:flutter_cases/case_4/pages/login_page.dart';
-import 'package:flutter_cases/case_4/pages/transacoes_listagem.dart';
+import 'package:flutter_cases/case_4/controllers/login_controller.dart';
+import 'package:flutter_cases/case_4/models/aluno_model.dart';
+import 'package:flutter_cases/case_4/view/pages/alterar_senha.dart';
+
+import 'package:flutter_cases/case_4/view/pages/aluno_cadastrar.dart';
+import 'package:flutter_cases/case_4/view/pages/aluno_editar.dart';
+import 'package:flutter_cases/case_4/view/pages/aluno_listar.dart';
+import 'package:flutter_cases/case_4/view/pages/home_case_4.dart';
+import 'package:flutter_cases/case_4/view/pages/login_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'home.dart';
 
 // aqui vamos configurar nossas rotas do flutter.
@@ -39,72 +39,62 @@ final GoRouter routerConfig = GoRouter(
             return AppQrCode();
           },
         ),
-        //AppQrCode
         GoRoute(
-          name: "case_4_home",
-          path: 'case4/home',
+          name: "case_4_login",
+          path: 'case_4_login',
           builder: (BuildContext context, GoRouterState state) {
-            return const Case4Home();
-          },
-        ),
-        //colocamos na rota a pagina de adicionar transação
-        GoRoute(
-          name: "case_4_transacoes_adicionar",
-          path: 'case4/transacoes/adicionar',
-          builder: (BuildContext context, GoRouterState state) {
-            return PaginaAdicionaTransacao();
-          },
-        ),
-        GoRoute(
-          name: "case_4_login_page",
-          path: 'case_4_login_page',
-          builder: (BuildContext context, GoRouterState state) {
-            if (UsuariosController.autenticado == true) {
-              return Case4Home();
+            final loginController = Provider.of<LoginController>(context);
+
+            if (loginController.autenticado == true) {
+              return PageHomeAlunos();
             } else {
-              return Case4_LoginPage();
+              return PageLoginAluno();
             }
           },
         ),
         GoRoute(
-          name: "case_4_transacoes",
-          path: 'case4/transacoes',
+          name: "case_4_aluno_adicionar",
+          path: 'case4/aluno/adicionar',
           builder: (BuildContext context, GoRouterState state) {
-            return TransacoesPage();
+            return PageCadastrarAluno();
           },
         ),
         GoRoute(
-          name: "case_4_contas",
-          path: 'case4/contas',
+          name: "case_4_home",
+          path: 'case4/home',
           builder: (BuildContext context, GoRouterState state) {
-            return MinhasContasPage();
+            return PageHomeAlunos();
           },
         ),
         GoRoute(
-          name: "case_4_transacoes_editar",
-          path: 'case4/transacoes/editar',
+          name: "case_4_aluno_listar",
+          path: 'case4/alunos',
           builder: (BuildContext context, GoRouterState state) {
-            Transacao? transacao =
-                Transacao.fromJson(state.queryParameters['transacao']!);
-            return PaginaEditarTransacao(
-              transacao: transacao,
+            return PageAlunosListagem();
+          },
+        ),
+        GoRoute(
+          name: "case_4_aluno_editar",
+          path: 'case4/aluno/editar',
+          builder: (BuildContext context, GoRouterState state) {
+            //transformamos em Json pois o queryParameters é do tipo Map<String, String>
+            //logo não é possivel passar o objeto diretamente via parametro
+            Aluno? aluno = Aluno.fromJson(state.queryParameters['aluno']!);
+            return PageEditarAluno(
+              aluno: aluno,
             );
           },
         ),
         GoRoute(
-          name: "case_4_contas_editar",
-          path: 'case4/contas/editar',
+          name: "case_4_aluno_editarsenha",
+          path: 'case4/aluno/editarsenha',
           builder: (BuildContext context, GoRouterState state) {
-            return PaginaEditarConta();
+            //transformamos em Json pois o queryParameters é do tipo Map<String, String>
+            //logo não é possivel passar o objeto diretamente via parametro
+            return PageEditarSenha();
           },
         ),
-        GoRoute(
-          name: "case_4_contas_adicionar",
-          path: 'case4/contas/adicionar',
-          builder: (BuildContext context, GoRouterState state) {
-            return PaginaAdicionarConta();
-          },
-        ),
+        //
       ],
     ),
   ],

@@ -12,7 +12,7 @@ class QRCodePage extends StatefulWidget {
 class _QRCodePageState extends State<QRCodePage> {
   String ticket = '';
 
-  readQRCode() async {
+  lerQRCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#FFFFFF",
       "Cancelar",
@@ -41,7 +41,6 @@ class _QRCodePageState extends State<QRCodePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //if(ticket != '')
             Padding(
               padding: EdgeInsets.only(bottom: 24),
               child: Text(
@@ -50,15 +49,14 @@ class _QRCodePageState extends State<QRCodePage> {
               ),
             ),
             ElevatedButton.icon(
-              onPressed: readQRCode,
-              icon: Icon(Icons.qr_code),
+              onPressed: lerQRCode,
+              icon: Icon(Icons.qr_code_2),
               label: Text("QRCODE"),
             ),
             Padding(padding: EdgeInsets.only(top: 20)),
             ElevatedButton.icon(
               onPressed: lerCodigoBarras,
               icon: Icon(CupertinoIcons.barcode),
-              // icon: Icon(Icons.scan)
               label: Text("Código de Barras"),
             )
           ],

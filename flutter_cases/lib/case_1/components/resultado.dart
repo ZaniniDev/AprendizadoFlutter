@@ -32,7 +32,7 @@ class Resultado extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: reiniciarQuestionario,
-          child: Text('Deseja Reiniciar?'),
+          child: Text('Reiniciar Questionário'),
           style: ElevatedButton.styleFrom(
               backgroundColor: Color.fromARGB(255, 158, 37, 37),
               foregroundColor: Colors.white),

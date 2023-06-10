@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cases/case_4/components/BottomNavigationBarCase4.dart';
+import 'package:flutter_cases/case_4/controllers/aluno_controller.dart';
+import 'package:flutter_cases/case_4/view/components/BottomNavigationBarCase4.dart';
+import 'package:flutter_cases/case_4/controllers/login_controller.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-class Case4Home extends StatelessWidget {
-  const Case4Home({super.key});
+class PageHomeAlunos extends StatelessWidget {
+  const PageHomeAlunos({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final alunosController = Provider.of<AlunosController>(context);
+    final loginController = Provider.of<LoginController>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Case 4 - Banco de Dados"),
@@ -14,7 +20,10 @@ class Case4Home extends StatelessWidget {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () => context.replace('/'),
+            onPressed: () {
+              loginController.deslogar();
+              context.pushReplacementNamed('case_4_login');
+            },
             icon: const Icon(Icons.logout),
           ),
         ],
@@ -25,7 +34,7 @@ class Case4Home extends StatelessWidget {
         ),
         child: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 10, left: 15, right: 15),
@@ -40,10 +49,10 @@ class Case4Home extends StatelessWidget {
                         Icons.cloud,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.all(10),
                       ),
                       Text(
-                        "Aplicação com Banco de Dados",
+                        "CRUD de Alunos",
                         style: TextStyle(fontWeight: FontWeight.bold),
                         textAlign: TextAlign.start,
                       )
@@ -55,13 +64,13 @@ class Case4Home extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.pushNamed("case_4_transacoes");
+                    context.pushNamed("case_4_aluno_listar");
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.search),
-                      Text("Listar Transações"),
+                      Icon(Icons.school),
+                      Text("Listar Alunos"),
                     ],
                   ),
                 ),
@@ -70,14 +79,11 @@ class Case4Home extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.pushNamed("case_4_transacoes_adicionar");
+                    context.pushNamed("case_4_aluno_adicionar");
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.attach_money),
-                      Text("Adicionar Transações")
-                    ],
+                    children: [Icon(Icons.add), Text("Adicionar Aluno")],
                   ),
                 ),
               ),
@@ -85,14 +91,14 @@ class Case4Home extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.pushNamed("case_4_contas");
+                    //envia o aluno logado para editar
+                    context.pushNamed("case_4_aluno_editar", queryParameters: {
+                      'aluno': alunosController.alunoLogado.toJson()
+                    });
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.account_balance),
-                      Text("Minhas Contas")
-                    ],
+                    children: const [Icon(Icons.person), Text("Minha Conta")],
                   ),
                 ),
               ),
@@ -100,18 +106,15 @@ class Case4Home extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.pushNamed("case_4_contas_adicionar");
+                    context.pushNamed("case_4_aluno_editarsenha");
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.new_label),
-                      Text("Criar conta")
-                    ],
+                    children: const [Icon(Icons.key), Text("Alterar Senha")],
                   ),
                 ),
               ),
-              Container()
+              Container(),
             ],
           ),
         ),
