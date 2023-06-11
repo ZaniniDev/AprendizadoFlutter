@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
@@ -216,32 +218,163 @@ class PaginaInicial extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        backgroundColor: Colors.blue,
-        fixedColor: Colors.black,
-        unselectedItemColor: Colors.black,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.notifications,
-              size: 24,
-            ),
-            label: "Push Notificação",
-          ),
-          BottomNavigationBarItem(
+          currentIndex: 1,
+          backgroundColor: Colors.blue,
+          fixedColor: Colors.black,
+          unselectedItemColor: Colors.black,
+          items: [
+            BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
-                size: 36,
-              ),
-              label: ("Home")),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.location_on,
+                Icons.notifications,
                 size: 24,
               ),
-              label: ("Localização")),
-        ],
-      ),
+              label: "Push Notificação",
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  size: 36,
+                ),
+                label: ("Home")),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.location_on,
+                  size: 24,
+                ),
+                label: ("Localização")),
+          ],
+          onTap: (value) async {
+            if (value == 0) {
+              // context.pushNamed("case_4_aluno_listar");
+            } else if (value == 1) {
+              // context.pushNamed("case_4_home");
+            } else if (value == 2) {
+              await Geolocator.requestPermission();
+              Position posicao = await Geolocator.getCurrentPosition();
+              String latitude = posicao.latitude.toString();
+              String longitude = posicao.longitude.toString();
+              List<Placemark> lugaresCordenada = await placemarkFromCoordinates(
+                  posicao.latitude, posicao.longitude);
+              List<Endereco> enderecos = [];
+
+              for (var lugarCordenada in lugaresCordenada) {
+                String nomeRua = lugarCordenada.street!;
+                String pais = lugarCordenada.country!;
+                String cep = lugarCordenada.postalCode!;
+                String estado = lugarCordenada.administrativeArea!;
+                String cidade = lugarCordenada.subAdministrativeArea!;
+                String bairro = lugarCordenada.subLocality!;
+                String numero = lugarCordenada.subThoroughfare!;
+                bool enderecoExistente = enderecos.any((endereco) {
+                  return (endereco.nomeRua.contains(nomeRua) ||
+                      endereco.cep == cep);
+                });
+                //verificacao se ja existe o endereço dentro dos endereços
+                //e caso o cep estiver vazio, provavelmente o endereço esta errado
+                if (enderecoExistente == false && cep != "") {
+                  enderecos.add(Endereco(
+                    nomeRua: nomeRua,
+                    pais: pais,
+                    cep: cep,
+                    estado: estado,
+                    cidade: cidade,
+                    bairro: bairro,
+                    numero: numero,
+                  ));
+                }
+              }
+              showAlertDialogInfoLocalizacao(
+                  context, latitude, longitude, enderecos);
+              // context.pushNamed("case_4_aluno_adicionar");
+            }
+          }),
     );
   }
+}
+
+class Endereco {
+  String nomeRua;
+  String pais;
+  String cep;
+  String estado;
+  String cidade;
+  String bairro;
+  String numero;
+
+  Endereco({
+    required this.nomeRua,
+    required this.pais,
+    required this.cep,
+    required this.estado,
+    required this.cidade,
+    required this.bairro,
+    required this.numero,
+  });
+
+  @override
+  String toString() {
+    return 'País: $pais, '
+        'Nome da rua: $nomeRua, '
+        'CEP: $cep, '
+        'Estado: $estado, '
+        'Cidade: $cidade, '
+        'Bairro: $bairro, '
+        'Número: $numero';
+  }
+}
+
+showAlertDialogInfoLocalizacao(BuildContext context, String latitude,
+    String longitude, List<Endereco> enderecos) {
+  // set up the buttons
+  Widget fecharButton = TextButton(
+    child: Text("Fechar"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Localização Atual"),
+    content: LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Text("Latitude: ${latitude} Longitude: ${longitude}"),
+              Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: Text("Possíveis Endereços:"),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: enderecos.length,
+                itemBuilder: (context, index) {
+                  Endereco endereco = enderecos[index];
+                  return ListTile(
+                    title:
+                        Text(endereco.nomeRua + ", Número:" + endereco.numero),
+                    subtitle: Text(
+                        '${endereco.cidade}, ${endereco.estado} - ${endereco.cep} - ${endereco.bairro}'),
+                    trailing: Text(endereco.pais),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    ),
+    actions: [
+      fecharButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
