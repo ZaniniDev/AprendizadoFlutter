@@ -76,6 +76,12 @@ class _PageAlunosListagemState extends State<PageAlunosListagem> {
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: TextFormField(
                                 controller: pesquisarNomeController,
+                                onChanged: (value) {
+                                  setState(() {
+                                    print("Filtro ->" +
+                                        pesquisarNomeController.text);
+                                  });
+                                },
                                 decoration: InputDecoration(
                                   labelText: 'Procurar...',
                                   enabledBorder: UnderlineInputBorder(
@@ -126,6 +132,21 @@ class _PageAlunosListagemState extends State<PageAlunosListagem> {
                       );
                     }
                     List<Aluno> alunosListagem = data.alunos;
+                    String textoFiltro =
+                        pesquisarNomeController.text.toString().trim();
+                    if (textoFiltro != "") {
+                      alunosListagem = alunosListagem.where((aluno) {
+                        String jsonAluno = aluno.toJson();
+                        if (jsonAluno
+                            .toLowerCase()
+                            .trim()
+                            .contains(textoFiltro.toLowerCase().trim())) {
+                          return true;
+                        } else {
+                          return false;
+                        }
+                      }).toList();
+                    }
                     return Container(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child: ListView.separated(
@@ -242,7 +263,7 @@ showAlertDialogInfoAluno(BuildContext context, Aluno aluno) {
   AlertDialog alert = AlertDialog(
     title: Text("Dados - " + aluno.nome!),
     content: Text(
-        "Nome: ${aluno.nome} \nRA: ${aluno.ra} \nCelular: ${aluno.celular} \nCurso:${aluno.curso} \nTurma: ${aluno.turma}° Semestre"),
+        "Nome: ${aluno.nome} \nRA: ${aluno.ra} \nCelular: ${aluno.celular} \nCurso: ${aluno.curso} \nTurma: ${aluno.turma}° Semestre"),
     actions: [
       fecharButton,
     ],

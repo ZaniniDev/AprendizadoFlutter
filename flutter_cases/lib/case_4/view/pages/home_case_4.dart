@@ -11,7 +11,6 @@ class PageHomeAlunos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final alunosController = Provider.of<AlunosController>(context);
-    final loginController = Provider.of<LoginController>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -20,9 +19,8 @@ class PageHomeAlunos extends StatelessWidget {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () {
-              loginController.deslogar();
-              context.pushReplacementNamed('case_4_login');
+            onPressed: () async {
+              showAlertDialogConfirmarLogout(context);
             },
             icon: const Icon(Icons.logout),
           ),
@@ -31,6 +29,7 @@ class PageHomeAlunos extends StatelessWidget {
       body: Theme(
         data: ThemeData(
           primarySwatch: Colors.green,
+          primaryColor: Colors.green,
         ),
         child: Container(
           child: Column(
@@ -38,26 +37,26 @@ class PageHomeAlunos extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 10, left: 15, right: 15),
-                child: Theme(
-                  data: ThemeData(
-                      primarySwatch: Colors.green,
-                      iconTheme: IconThemeData(color: Colors.green)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    IconTheme(
+                      data: IconThemeData(
+                        color: Colors.green,
+                      ),
+                      child: Icon(
                         Icons.cloud,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                      ),
-                      Text(
-                        "CRUD de Alunos",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
-                      )
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Text(
+                      "CRUD de Alunos",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
+                    )
+                  ],
                 ),
               ),
               SizedBox(
@@ -122,4 +121,40 @@ class PageHomeAlunos extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBarCase4(currentIndex: 1),
     );
   }
+}
+
+showAlertDialogConfirmarLogout(BuildContext context) {
+  // set up the buttons
+  Widget cancelarButton = TextButton(
+    child: Text("Cancelar"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget confirmarButton = TextButton(
+    child: Text("Sim"),
+    onPressed: () async {
+      Navigator.pop(context);
+      await Provider.of<LoginController>(context, listen: false).deslogar();
+      context.pushReplacementNamed('case_4_login');
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Sair da conta"),
+    content: Text("Você deseja sair da conta?"),
+    actions: [
+      cancelarButton,
+      confirmarButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

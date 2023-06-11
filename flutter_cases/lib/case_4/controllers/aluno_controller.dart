@@ -6,6 +6,8 @@ import 'package:flutter_cases/case_4/utils/Status.dart';
 class AlunosController extends ChangeNotifier {
   List<Aluno> alunos = [];
   late Aluno alunoLogado;
+  late String textoFiltro;
+
   Status status = Status.sucesso;
 
   Future<bool> adicionarAluno(Aluno aluno) async {

@@ -72,7 +72,7 @@ class _PageEditarSenhaState extends State<PageEditarSenha> {
                     TextFormField(
                       controller: senhaAlunoController,
                       obscureText: true,
-                      decoration: InputDecoration(labelText: 'Senha'),
+                      decoration: InputDecoration(labelText: 'Nova Senha'),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'O Senha RA é obrigatório.';
@@ -86,7 +86,8 @@ class _PageEditarSenhaState extends State<PageEditarSenha> {
                     TextFormField(
                       controller: confirmarSenhaController,
                       obscureText: true,
-                      decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                      decoration:
+                          InputDecoration(labelText: 'Confirmar Nova Senha'),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'A confirmação da senha é obrigatório.';

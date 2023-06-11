@@ -59,7 +59,7 @@ class _PageEditarAlunoState extends State<PageEditarAluno> {
         await alunosController.editarAluno(alunoAtualizado);
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Aluno adicionado com sucesso!')),
+          const SnackBar(content: Text('Informações atualizadas com sucesso!')),
         );
         nomeAlunoController.clear();
         cursoAlunoController.clear();
