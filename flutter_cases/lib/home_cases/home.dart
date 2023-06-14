@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_cases/case_3/services/notificacaoService.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -142,6 +146,7 @@ class PaginaInicial extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
+                          context.goNamed("case_3_home");
                           print("Pressionado botao 3 case!");
                         },
                         style: ElevatedButton.styleFrom(
@@ -221,7 +226,7 @@ class PaginaInicial extends StatelessWidget {
           currentIndex: 1,
           backgroundColor: Colors.blue,
           fixedColor: Colors.black,
-          unselectedItemColor: Colors.black,
+          unselectedItemColor: Colors.purple,
           items: [
             BottomNavigationBarItem(
               icon: Icon(
@@ -245,6 +250,7 @@ class PaginaInicial extends StatelessWidget {
           ],
           onTap: (value) async {
             if (value == 0) {
+              await criarNotificacaoExemplo();
               // context.pushNamed("case_4_aluno_listar");
             } else if (value == 1) {
               // context.pushNamed("case_4_home");
@@ -376,5 +382,20 @@ showAlertDialogInfoLocalizacao(BuildContext context, String latitude,
     builder: (BuildContext context) {
       return alert;
     },
+  );
+}
+
+Future<void> criarNotificacaoExemplo() async {
+  NotificacaoService notificacaoService = NotificacaoService();
+  await notificacaoService.mostrarNotificacao(
+    0,
+    "Push Notificação teste!",
+    "Horário da Notificação: " +
+        DateFormat("dd/MM/yyyy HH:mm:s").format(DateTime.now()) +
+        ".",
+    jsonEncode({
+      "title": "Notificação JSON Teste!",
+      "eventDate": DateFormat("EEEE, d MMM y").format(DateTime.now())
+    }),
   );
 }

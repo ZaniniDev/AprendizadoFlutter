@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cases/case_1/home_case_1.dart';
 import 'package:flutter_cases/case_2/home_case_2.dart';
+import 'package:flutter_cases/case_3/home_case_3.dart';
 import 'package:flutter_cases/case_4/controllers/login_controller.dart';
 import 'package:flutter_cases/case_4/models/aluno_model.dart';
 import 'package:flutter_cases/case_4/view/pages/alterar_senha.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_cases/case_4/view/pages/home_case_4.dart';
 import 'package:flutter_cases/case_4/view/pages/login_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'home.dart';
+import 'home_cases/home.dart';
 
 // aqui vamos configurar nossas rotas do flutter.
 // o intuito das rotas é deixar a estruturação das paginas mais organizada
@@ -39,6 +40,14 @@ final GoRouter routerConfig = GoRouter(
             return AppQrCode();
           },
         ),
+        GoRoute(
+          name: "case_3_home",
+          path: 'case3/home',
+          builder: (BuildContext context, GoRouterState state) {
+            return PaginaPrincipal();
+          },
+        ),
+        //
         GoRoute(
           name: "case_4_login",
           path: 'case_4_login',
