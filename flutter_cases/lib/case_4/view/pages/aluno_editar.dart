@@ -56,20 +56,28 @@ class _PageEditarAlunoState extends State<PageEditarAluno> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Processando os dados...')),
         );
+
+        //verifica se foi mudado o ra, comparando o ra do controle x o ra do parametro
+        if (alunoAtualizado.ra != alunoEditar.ra) {
+          bool raExistenteBase =
+              await alunosController.exiteRaAluno(alunoAtualizado.ra!);
+          if (raExistenteBase == true) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                    'O RA indicado já existe! Escolha um RA que não foi utilizado.'),
+                duration: Duration(seconds: 5),
+              ),
+            );
+            return;
+          }
+        }
+
         await alunosController.editarAluno(alunoAtualizado);
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Informações atualizadas com sucesso!')),
         );
-        nomeAlunoController.clear();
-        cursoAlunoController.clear();
-        turmaAlunoController.clear();
-        celularAlunoController.clear();
-        raAlunoController.clear();
-        senhaAlunoController.clear();
-
-        print(
-            "Valores -> ${nomeAlunoController.text} / ${senhaAlunoController.text} / ${cursoAlunoController.text}");
       }
     }
 

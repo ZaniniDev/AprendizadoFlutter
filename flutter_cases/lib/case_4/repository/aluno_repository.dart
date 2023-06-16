@@ -5,24 +5,23 @@ class AlunoRepository {
   //Instantiate Firestore
   static final db = FirebaseFirestore.instance;
 
-  static Future<bool> criarAluno(Aluno aluno) async {
+  static Future<String> criarAluno(Aluno aluno) async {
     final docRef = db.collection('alunos').doc();
-    bool criouAluno = false;
-
+    String idAluno = "";
     aluno.id = docRef.id;
     await docRef.set(aluno.toMap()).then((value) {
       print("Aluno inserido com sucesso!");
-      criouAluno = true;
+      idAluno = aluno.id!;
     }, onError: (e) => print("Error na criação do aluno : $e"));
-    return criouAluno;
+    return idAluno;
   }
 
   static Future<List<Aluno>> getAlunos() async {
     List<Aluno> alunos = [];
     await db.collection("alunos").orderBy("nome", descending: false).get().then(
       (querySnapshot) {
+        print("Alunos encontrados:" + querySnapshot.docs.length.toString());
         for (var docSnapshot in querySnapshot.docs) {
-          print('${docSnapshot.id} => ${docSnapshot.data()}');
           alunos.add(Aluno.fromMap(docSnapshot.data()));
         }
       },
@@ -57,5 +56,18 @@ class AlunoRepository {
     );
     print(atualizou);
     return atualizou;
+  }
+
+  static Future<bool> procuraRA(String raAluno) async {
+    bool raEncontrado = false;
+    await db.collection("alunos").where("ra", isEqualTo: raAluno).get().then(
+      (querySnapshot) {
+        if (querySnapshot.docs.length > 0) {
+          raEncontrado = true;
+        }
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+    return raEncontrado;
   }
 }

@@ -11,7 +11,20 @@ class AlunosController extends ChangeNotifier {
   Status status = Status.sucesso;
 
   Future<bool> adicionarAluno(Aluno aluno) async {
-    bool criouAluno = await AlunoRepository.criarAluno(aluno);
+    setStatus(Status.carregando);
+    if (await exiteRaAluno(aluno.ra!)) {
+      setStatus(Status.sucesso);
+      return false;
+    }
+    bool criouAluno = false;
+    String idNovoAluno = await AlunoRepository.criarAluno(aluno);
+    if (idNovoAluno != "") {
+      aluno.id = idNovoAluno;
+      alunos.add(aluno);
+      criouAluno = true;
+    }
+    setStatus(Status.sucesso);
+    notifyListeners();
     return criouAluno;
   }
 
@@ -53,6 +66,11 @@ class AlunosController extends ChangeNotifier {
     setStatus(Status.sucesso);
     notifyListeners();
     return atualizouAluno;
+  }
+
+  Future<bool> exiteRaAluno(String ra) async {
+    bool existeRaAluno = await AlunoRepository.procuraRA(ra);
+    return existeRaAluno;
   }
 
   void setStatus(Status statusSet) {

@@ -57,6 +57,17 @@ class _PageCadastrarAlunoState extends State<PageCadastrarAluno> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Processando os dados...')),
         );
+        bool raExistenteBase =
+            await alunosController.exiteRaAluno(novoAluno.ra!);
+        if (raExistenteBase == true) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('O RA já existe e não pode ser adicionado!'),
+              duration: Duration(seconds: 5),
+            ),
+          );
+          return;
+        }
         bool sucessoCriacao = await alunosController.adicionarAluno(novoAluno);
 
         if (sucessoCriacao == true) {
