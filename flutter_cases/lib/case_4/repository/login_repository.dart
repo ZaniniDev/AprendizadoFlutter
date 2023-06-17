@@ -15,7 +15,6 @@ class LoginRepository {
         .then(
       (querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
-          print('${docSnapshot.id} => ${docSnapshot.data()}');
           alunoLogado = Aluno.fromMap(docSnapshot.data());
         }
       },

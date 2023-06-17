@@ -9,13 +9,14 @@ class Resultado extends StatelessWidget {
   String get fraseResultado {
 //nao pode ficar sem else.
     if (pontuacao < 8) {
-      return 'Parabens ! Sua pontuação foi: ' + pontuacao.toString();
+      return 'Você pode melhorar! Sua pontuação foi: ' + pontuacao.toString();
     } else if (pontuacao < 12) {
-      return 'Voce é bom! Sua pontuação foi: ' + pontuacao.toString();
+      return 'Você é bom! Sua pontuação foi: ' + pontuacao.toString();
     } else if (pontuacao < 16) {
-      return 'Impressionante! Sua pontuação foi: ' + pontuacao.toString();
+      return 'Você está com o aprendizado em dia! Sua pontuação foi: ' +
+          pontuacao.toString();
     } else {
-      return 'Nivel Jedi! Sua pontuação foi: ' + pontuacao.toString();
+      return 'Você sabe muito! Sua pontuação foi: ' + pontuacao.toString();
     }
   }
 
@@ -34,7 +35,7 @@ class Resultado extends StatelessWidget {
           onPressed: reiniciarQuestionario,
           child: Text('Reiniciar Questionário'),
           style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 158, 37, 37),
+              backgroundColor: Colors.greenAccent,
               foregroundColor: Colors.white),
         )
       ],

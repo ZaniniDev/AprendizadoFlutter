@@ -124,7 +124,6 @@ class PageHomeAlunos extends StatelessWidget {
 }
 
 showAlertDialogConfirmarLogout(BuildContext context) {
-  // set up the buttons
   Widget cancelarButton = TextButton(
     child: Text("Cancelar"),
     onPressed: () {

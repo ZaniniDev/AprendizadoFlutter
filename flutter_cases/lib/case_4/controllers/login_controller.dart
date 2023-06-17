@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_cases/case_4/models/aluno_model.dart';
 import 'package:flutter_cases/case_4/repository/login_repository.dart';
 import 'package:flutter_cases/case_4/services/criptografiaSenha.dart';
-import 'package:flutter_cases/case_4/utils/Status.dart';
+import 'package:flutter_cases/utils/Status.dart';
 
 class LoginController with ChangeNotifier {
   late Aluno alunoLogado;
@@ -14,10 +14,8 @@ class LoginController with ChangeNotifier {
     setStatus(Status.carregando);
     alunoLogado = await LoginRepository.verificaLogin(ra, senhaCriptografada);
     if (alunoLogado.id != null) {
-      print("Aluno logado");
       autenticado = true;
     } else {
-      print("Senha Incorreta");
       autenticado = false;
     }
     setStatus(Status.sucesso);

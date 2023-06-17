@@ -10,7 +10,7 @@ class AlunoRepository {
     String idAluno = "";
     aluno.id = docRef.id;
     await docRef.set(aluno.toMap()).then((value) {
-      print("Aluno inserido com sucesso!");
+      // print("Aluno inserido com sucesso!");
       idAluno = aluno.id!;
     }, onError: (e) => print("Error na criação do aluno : $e"));
     return idAluno;
@@ -20,7 +20,7 @@ class AlunoRepository {
     List<Aluno> alunos = [];
     await db.collection("alunos").orderBy("nome", descending: false).get().then(
       (querySnapshot) {
-        print("Alunos encontrados:" + querySnapshot.docs.length.toString());
+        // print("Alunos encontrados:" + querySnapshot.docs.length.toString());
         for (var docSnapshot in querySnapshot.docs) {
           alunos.add(Aluno.fromMap(docSnapshot.data()));
         }
@@ -35,12 +35,11 @@ class AlunoRepository {
     bool removeu = false;
     await db.collection('alunos').doc(idAluno).delete().then(
       (querySnapshot) {
-        print("Aluno: " + aluno.nome! + " removido com sucesso!");
+        // print("Aluno: " + aluno.nome! + " removido com sucesso!");
         removeu = true;
       },
       onError: (e) => print("Error completing: $e"),
     );
-    print(removeu);
     return removeu;
   }
 
@@ -49,12 +48,11 @@ class AlunoRepository {
     String idAluno = aluno.id!;
     await db.collection('alunos').doc(idAluno).update(aluno.toMap()).then(
       (querySnapshot) {
-        print("Aluno: " + aluno.nome! + " editada com sucesso!");
+        // print("Aluno: " + aluno.nome! + " editada com sucesso!");
         atualizou = true;
       },
       onError: (e) => print("Error completing: $e"),
     );
-    print(atualizou);
     return atualizou;
   }
 

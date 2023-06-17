@@ -23,14 +23,18 @@ class Questionario extends StatelessWidget {
         ? perguntas[perguntaSelecionada]['resposta']
             as List<Map<String, Object>>
         : [];
-    return Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      Questao(perguntas[perguntaSelecionada]['texto'] as String),
-      ...respostas.map((resp) {
-        return Resposta(
-          resp['texto'].toString(),
-          () => responder(resp['pontuacao'] as int),
-        );
-      }).toList(),
-    ]);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Questao(perguntas[perguntaSelecionada]['texto'] as String),
+        ...respostas.map((resp) {
+          return Resposta(
+            resp['texto'].toString(),
+            () => responder(resp['pontuacao'] as int),
+          );
+        }).toList(),
+        Container()
+      ],
+    );
   }
 }

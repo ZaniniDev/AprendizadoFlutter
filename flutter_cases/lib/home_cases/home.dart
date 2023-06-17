@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cases/case_3/services/notificacaoService.dart';
+import 'package:flutter_cases/case_2/services/notificacaoService.dart';
+import 'package:flutter_cases/utils/Dialogo.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
@@ -32,12 +33,11 @@ class PaginaInicial extends StatelessWidget {
         actions: <Widget>[
           //iconbutton = widget que tem como parametros o icone e o onpressed
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.flashlight_on),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.share),
+            onPressed: () {
+              mostrarDialogoSimples(context, "Descrição do APP",
+                  "Este case foi criado para servir de apoio para estudantes na área de tecnologia, que querem conhecer uma ferramenta mobile e que atualmente é multiplataforma.\nO intuito desse case é mostrar as capacidades que o flutter oferece para o desenvolvedor, com uma forma simples de aprendizado.\nApresentamos 4 cases distintos que podem ser reaproveitados para aplicações mais complexas, tudo com a base que vamos oferecer nesses cases.");
+            },
+            icon: Icon(Icons.info),
           ),
         ],
       ),
@@ -59,7 +59,6 @@ class PaginaInicial extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       context.goNamed("case_1_home");
-                      print("Pressionado botao 1 case!");
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -94,6 +93,48 @@ class PaginaInicial extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.bottomCenter,
+              margin: EdgeInsets.only(top: 10),
+              child: Theme(
+                  data: ThemeData(
+                    primarySwatch: Colors.lightBlue,
+                    brightness: Brightness.dark,
+                  ),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          context.goNamed("case_2_home");
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.account_box),
+                            Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text("Segundo Case"),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          "O segundo case retrata como aprendemos a utilizar os recursos nativos de software mobile",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
               child: Theme(
                 data: ThemeData(
                   primarySwatch: Colors.amber,
@@ -102,8 +143,7 @@ class PaginaInicial extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        context.goNamed("case_2_home");
-                        print("Pressionado botao 2 case!");
+                        context.goNamed("case_3_home");
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.amber,
@@ -114,7 +154,7 @@ class PaginaInicial extends StatelessWidget {
                           Icon(Icons.qr_code_2),
                           Padding(
                             padding: EdgeInsets.all(16),
-                            child: Text("Segundo Case"),
+                            child: Text("Terceiro Case"),
                           )
                         ],
                       ),
@@ -122,7 +162,7 @@ class PaginaInicial extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Text(
-                        "O segundo case retrata como aprendemos a utilizar os recursos nativos de hardware mobile",
+                        "O terceiro case retrata como aprendemos a utilizar os recursos nativos de hardware mobile",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 10,
@@ -136,60 +176,16 @@ class PaginaInicial extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(top: 10),
-              child: Theme(
-                  data: ThemeData(
-                    primarySwatch: Colors.lightBlue,
-                    brightness: Brightness.dark,
-                  ),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          context.goNamed("case_3_home");
-                          print("Pressionado botao 3 case!");
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.account_box),
-                            Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Text("Terceiro Case"),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
-                          "O terceiro case retrata como aprendemos a utilizar os recursos nativos de software mobile",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
               margin: EdgeInsets.only(bottom: 25),
               child: Theme(
                   data: ThemeData(
-                    primarySwatch: Colors.red,
+                    primarySwatch: Colors.green,
                   ),
                   child: Column(
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           context.goNamed("case_4_login");
-                          print("Pressionado botao 4 case!");
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -331,7 +327,6 @@ class Endereco {
 
 showAlertDialogInfoLocalizacao(BuildContext context, String latitude,
     String longitude, List<Endereco> enderecos) {
-  // set up the buttons
   Widget fecharButton = TextButton(
     child: Text("Fechar"),
     onPressed: () {

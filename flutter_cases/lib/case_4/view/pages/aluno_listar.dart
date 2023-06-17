@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cases/case_4/models/aluno_model.dart';
-import 'package:flutter_cases/case_4/utils/Status.dart';
+import 'package:flutter_cases/utils/Status.dart';
 import 'package:flutter_cases/case_4/view/components/BottomNavigationBarCase4.dart';
 import 'package:flutter_cases/case_4/controllers/aluno_controller.dart';
 import 'package:go_router/go_router.dart';
@@ -78,8 +78,8 @@ class _PageAlunosListagemState extends State<PageAlunosListagem> {
                                 controller: pesquisarNomeController,
                                 onChanged: (value) {
                                   setState(() {
-                                    print("Filtro ->" +
-                                        pesquisarNomeController.text);
+                                    // print("Filtro ->" +
+                                    //     pesquisarNomeController.text);
                                   });
                                 },
                                 decoration: InputDecoration(
@@ -126,7 +126,6 @@ class _PageAlunosListagemState extends State<PageAlunosListagem> {
                 child: Consumer<AlunosController>(
                   builder: (context, data, child) {
                     if (data.status == Status.carregando) {
-                      print("Status carregando!");
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
@@ -251,7 +250,6 @@ class _PageAlunosListagemState extends State<PageAlunosListagem> {
 }
 
 showAlertDialogInfoAluno(BuildContext context, Aluno aluno) {
-  // set up the buttons
   Widget fecharButton = TextButton(
     child: Text("Fechar"),
     onPressed: () {
@@ -279,7 +277,6 @@ showAlertDialogInfoAluno(BuildContext context, Aluno aluno) {
 }
 
 showAlertDialogExcluirAluno(BuildContext context, Aluno aluno) {
-  // set up the buttons
   Widget cancelarButton = TextButton(
     child: Text("Cancelar"),
     onPressed: () {

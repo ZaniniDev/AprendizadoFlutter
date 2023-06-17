@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_cases/case_4/models/aluno_model.dart';
 import 'package:flutter_cases/case_4/repository/aluno_repository.dart';
-import 'package:flutter_cases/case_4/utils/Status.dart';
+import 'package:flutter_cases/utils/Status.dart';
 
 class AlunosController extends ChangeNotifier {
   List<Aluno> alunos = [];
